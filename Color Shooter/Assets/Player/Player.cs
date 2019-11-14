@@ -2,10 +2,18 @@
 
 public class Player : MonoBehaviour {
     [SerializeField] new Rigidbody2D rigidbody;
+    [Header("Details")]
+    [SerializeField] float health;
+    [SerializeField] float damage;
     [SerializeField] float moveSpeed;
+    [Header("Weapon")]
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject weaponHead;
     [SerializeField] Sprite[] weaponHeadSprites;
+    [SerializeField] int rotationOffset = -45;
+    [Header("Projectile")]
+    [SerializeField] Projectile projectile;
+    [SerializeField] float projectileSpeed;
 
     Vector2 movement;
     MyColor color;
@@ -16,7 +24,11 @@ public class Player : MonoBehaviour {
 
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var angle = Mathf.Atan2(mousePos.y - weapon.transform.position.y, mousePos.x - weapon.transform.position.x) * Mathf.Rad2Deg;
-        weapon.transform.rotation = Quaternion.Euler(0, 0, angle - 45);
+        weapon.transform.rotation = Quaternion.Euler(0, 0, angle + rotationOffset);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            Shoot();
+        }
     }
 
     void FixedUpdate() {
@@ -30,5 +42,20 @@ public class Player : MonoBehaviour {
             case MyColor.blue: weaponHead.GetComponent<SpriteRenderer>().sprite = weaponHeadSprites[1]; break;
             case MyColor.green: weaponHead.GetComponent<SpriteRenderer>().sprite = weaponHeadSprites[2]; break;
         }
+    }
+
+    public void TakeDamage(float amount) {
+        if (amount < health) {
+            health -= amount;
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
+    void Shoot() {
+        var projectileInstance = Instantiate(projectile, weaponHead.transform.position, weaponHead.transform.rotation);
+        projectileInstance.SetColor(color);
+        projectileInstance.GetComponent<Rigidbody2D>().AddForce(weaponHead.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        projectileInstance.damage = damage;
     }
 }
