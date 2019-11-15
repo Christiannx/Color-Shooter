@@ -13,10 +13,12 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float fireRate;
 
     Transform target;
+    public static int count = 0;
 
     void Start() {
         target = FindObjectOfType<Player>().transform;
         InvokeRepeating(nameof(Shoot), fireRate + Random.Range(-0.5f, 0.5f), fireRate);
+        count++;
     }
 
     void Update() {
@@ -41,6 +43,7 @@ public class Enemy : MonoBehaviour {
     }
 
     void Die() {
+        count--;
         Destroy(gameObject);
     }
 }
