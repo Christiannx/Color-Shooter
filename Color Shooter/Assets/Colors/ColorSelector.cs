@@ -31,5 +31,5 @@ public class ColorSelector : MonoBehaviour {
 }
 
 public enum MyColor {
-    red, blue, green
+    red = 0, blue = 1, green = 2
 }

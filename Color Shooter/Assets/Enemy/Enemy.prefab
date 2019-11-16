@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3370355309044569728}
   - component: {fileID: 3370355309044569731}
+  - component: {fileID: 1056078744085069981}
   - component: {fileID: 3370355309044569730}
   - component: {fileID: 3370355309044569733}
   m_Layer: 0
@@ -130,14 +131,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
-  health: 2
-  movementSpeed: 1
-  maxDistanceToPlayer: 3
+  health: 3
   shuriken: {fileID: 6641083822655956905, guid: a534f399af544bd47aa0517ec7c20000,
     type: 3}
   damage: 1
-  shurikenSpeed: 8
+  shurikenSpeed: 6.5
   fireRate: 2
+--- !u!114 &1056078744085069981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370355309044569729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f592e7bbdb37b43ae41e4b15ef45fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  maxDistanceToPlayer: 3
 --- !u!58 &3370355309044569730
 CircleCollider2D:
   m_ObjectHideFlags: 0

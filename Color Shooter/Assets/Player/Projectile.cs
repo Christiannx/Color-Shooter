@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour {
         if (!other.GetComponent<Player>()) {
             if (other.GetComponent<Enemy>()?.color == color)
                 other.GetComponent<Enemy>()?.TakeDamage(damage);
+            else
+                other.GetComponent<Boss>()?.TakeDamage(damage, color);
             Destroy(gameObject);
         }
     }

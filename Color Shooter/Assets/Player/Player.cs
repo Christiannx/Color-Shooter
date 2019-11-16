@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     [SerializeField] new Rigidbody2D rigidbody;
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour {
 
     Vector2 movement;
     MyColor color;
-
+ 
     void Update() {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -32,7 +33,10 @@ public class Player : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        rigidbody.MovePosition(rigidbody.position + movement * moveSpeed * Time.deltaTime);
+        var new_position = rigidbody.position + movement * moveSpeed * Time.deltaTime;
+        new_position.x = Mathf.Clamp(new_position.x, -8.4f, 8.4f);
+        new_position.y = Mathf.Clamp(new_position.y, -4.5f, 4.5f); 
+        rigidbody.MovePosition(new_position);
     }
 
     public void SetColor(MyColor color) {

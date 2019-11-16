@@ -5,8 +5,8 @@ public class Shuriken : MonoBehaviour {
     [HideInInspector] public float damage;
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (!other.GetComponent<Enemy>()) {
-            other.GetComponent<Player>()?.TakeDamage(damage);
+        if (other.GetComponent<Player>()) {
+            other.GetComponent<Player>().TakeDamage(damage);
             Destroy(gameObject);
         }
     }

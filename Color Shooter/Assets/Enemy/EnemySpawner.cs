@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
     [SerializeField] Enemy[] enemies;
+    [SerializeField] Boss boss;
     [SerializeField] float spawnDistance;
     [SerializeField] float spawnTime;
 
@@ -15,11 +16,7 @@ public class EnemySpawner : MonoBehaviour {
 
     void Start() {
         player = FindObjectOfType<Player>().transform;
-    }
-
-    void Update() {
-        if (!waveInitiated)
-            StartCoroutine(nameof(NextWave));
+        StartCoroutine(nameof(NextWave));
     }
 
     IEnumerator NextWave() {
@@ -34,7 +31,12 @@ public class EnemySpawner : MonoBehaviour {
 
         yield return new WaitUntil(() => Enemy.count <= 0);
 
-        // Spawn Boss
+        var bossInstance = Instantiate(boss, Vector3.zero, Quaternion.identity);
+
+        yield return new WaitUntil(() => bossInstance == null);
+
+        waveInitiated = false;
+        StartCoroutine(nameof(NextWave));
     }
 
     void SpawnEnemy() {
